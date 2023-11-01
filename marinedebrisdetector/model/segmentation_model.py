@@ -69,7 +69,7 @@ class SegmentationModel(pl.LightningModule):
     def test_step(self, batch, batch_idx):
         return self.common_step(batch, batch_idx)
 
-    def validation_epoch_end(self, outputs):
+    def on_validation_epoch_end(self, outputs):
         y_true = np.hstack([o["y_true"] for o in outputs])
         y_scores = np.hstack([o["y_scores"] for o in outputs])
         loss = np.hstack([o["loss"] for o in outputs])

@@ -97,11 +97,11 @@ class PLPCallback(pl.Callback):
         recall= msk[pred].float().mean().cpu().detach().numpy()
         precision = pred[msk].float().mean().cpu().detach().numpy()
         fscore = 2 * (precision*recall) / (precision+recall+1e-12)
-        self.log(f"PLP{self.dataset.year}", dict(
-            recall=float(recall),
-            precision=float(precision),
-            fscore=float(fscore)
-        ))
+        self.log(f"PLP{self.dataset.year}", {
+            'recall': float(recall),
+            'precision': float(precision),
+            'fscore': float(fscore)
+        })
 
         stats = []
         for image, mask, y_prob, year in zip(images, masks, y_probs, years):
